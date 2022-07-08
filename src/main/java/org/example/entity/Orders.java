@@ -1,6 +1,8 @@
 package org.example.entity;
 
 
+import org.example.utils.OrdersState;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,22 +13,22 @@ public class Orders {
     @GeneratedValue ( strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "clients_id")
+    @JoinColumn(name = "clientId")
     private Clients clients;
-    @Column (name="typePresta")
+
     private String typePresta;
-    @Column (name="designation")
+
     private String designation;
-    @Column (name="nbDays")
-    private int nbDays;
-    @Column (name="unitPrice")
-    private float unitPrice;
-    @Column (name="state")
-    private byte state;
-    @Column (name="totalExcludeTaxe")
-    private float totalExcludeTaxe;
-    @Column (name="totalWithTaxe")
-    private float totalWithTaxe;
+
+    private Integer nbDays;
+
+    private Float unitPrice;
+    @Column (name="state" , columnDefinition = "bit")
+    private OrdersState state;
+
+    private Float totalExcludeTaxe;
+
+    private Float totalWithTaxe;
 
     public Orders() {
 
@@ -56,27 +58,27 @@ public class Orders {
         this.designation = designation;
     }
 
-    public int getNbDays() {
+    public Integer getNbDays() {
         return nbDays;
     }
 
-    public void setNbDays(int nbDays) {
+    public void setNbDays(Integer nbDays) {
         this.nbDays = nbDays;
     }
 
-    public float getUnitPrice() {
+    public Float getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(float unitPrice) {
+    public void setUnitPrice(Float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public byte getState() {
+    public OrdersState getState() {
         return state;
     }
 
-    public void setState(byte state) {
+    public void setState(OrdersState state) {
         this.state = state;
     }
 
@@ -84,7 +86,7 @@ public class Orders {
         return totalExcludeTaxe;
     }
 
-    public void setTotalExcludeTaxe(float totalExcludeTaxe) {
+    public void setTotalExcludeTaxe(Float totalExcludeTaxe) {
         this.totalExcludeTaxe = totalExcludeTaxe;
     }
 
@@ -92,7 +94,7 @@ public class Orders {
         return totalWithTaxe;
     }
 
-    public void setTotalWithTaxe(float totalWithTaxe) {
+    public void setTotalWithTaxe(Float totalWithTaxe) {
         this.totalWithTaxe = totalWithTaxe;
     }
 
@@ -104,5 +106,30 @@ public class Orders {
         this.clients = clients;
     }
 
+
+    public void setNotNullData(Orders newOrdersData){
+        if(newOrdersData.getTypePresta() != null) {
+            this.setTypePresta(newOrdersData.getTypePresta());
+        }
+        if(newOrdersData.getDesignation() != null) {
+            this.setDesignation(newOrdersData.getDesignation());
+        }
+
+        if(newOrdersData.getNbDays() != null) {
+            this.setNbDays(newOrdersData.getNbDays());
+        }
+
+        if(newOrdersData.getUnitPrice() != null) {
+            this.setUnitPrice(newOrdersData.getUnitPrice());
+        }
+
+        if(newOrdersData.getState() != null) {
+            this.setState(newOrdersData.getState());
+        }
+
+        if(newOrdersData.getClients() != null) {
+            this.setClients(newOrdersData.getClients());
+        }
+    }
 
 }

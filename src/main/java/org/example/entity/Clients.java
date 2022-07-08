@@ -1,6 +1,8 @@
 package org.example.entity;
 
 
+import org.example.utils.ClientsState;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,38 +11,57 @@ public class Clients {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column (name="compagnyName")
+    private Integer id;
+
     private String companyName;
-    @Column (name="firstName")
+
     private String firstName;
-    @Column (name="lastName")
+
     private String lastName;
-    @Column (name="email")
+
     private String email;
-    @Column (name="phone")
+
 
     private String phone;
-    @Column (name="address")
+    @Column (name="address" , columnDefinition = "text")
     private String address;
-    @Column (name="zipCode")
+
     private String zipCode;
-    @Column (name="city")
+
     private String city;
-    @Column (name="country")
+
     private String country;
-    @Column (name="state")
-    private byte state;
+    @Column (name="state" , columnDefinition = "bit")
+    private ClientsState state;
 
     public Clients() {
 
     }
 
-    public int getId() {
+    public Clients(Integer id, String companyName, String firstName, String lastName, String email, String phone, String address, String zipCode, String city, String country, ClientsState state) {
+        this.id = id;
+        this.companyName = companyName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.country = country;
+        this.state = state;
+    }
+
+    public Clients(String name) {
+        this.firstName = name;
+    }
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -116,15 +137,55 @@ public class Clients {
         this.country = country;
     }
 
-    public byte getState() {
+
+    public ClientsState getState() {
         return state;
     }
 
-    public void setState(byte state) {
+    public void setState(ClientsState state) {
         this.state = state;
     }
 
+    public void setNotNullData(Clients newClientsData){
+        if(newClientsData.getCompanyName() != null) {
+            this.setCompanyName(newClientsData.getCompanyName());
+        }
+        if(newClientsData.getFirstName() != null) {
+            this.setFirstName(newClientsData.getFirstName());
+        }
 
+        if(newClientsData.getLastName() != null) {
+            this.setLastName(newClientsData.getLastName());
+        }
+
+        if(newClientsData.getEmail() != null) {
+            this.setEmail(newClientsData.getEmail());
+        }
+
+        if(newClientsData.getPhone() != null) {
+            this.setPhone(newClientsData.getPhone());
+        }
+
+        if(newClientsData.getAddress() != null) {
+            this.setAddress(newClientsData.getAddress());
+        }
+
+        if(newClientsData.getZipCode() != null) {
+            this.setZipCode(newClientsData.getZipCode());
+        }
+
+        if(newClientsData.getCity() != null) {
+            this.setCity(newClientsData.getCity());
+        }
+
+        if(newClientsData.getCountry() != null) {
+            this.setCountry(newClientsData.getCountry());
+        }
+
+        if(newClientsData.getState() != null) {
+            this.setState(newClientsData.getState());
+        }
+    }
     @Override
     public String toString() {
         return "Client{" +
