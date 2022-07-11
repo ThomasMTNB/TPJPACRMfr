@@ -50,8 +50,11 @@ public class OrdersDAO {
 
 
     public static List findByTypePresta (String typePresta) {
+        EntityManager entityManager = EntityManagerSingleton.getEntityManager();
 
-
+        Query queryToFindOrderByTypePresta = entityManager.createQuery("select o from Order o where o.typePresta = :typePresta");
+        queryToFindOrderByTypePresta.setParameter("typePresta", typePresta);
+        return queryToFindOrderByTypePresta.getResultList();
     }
 
 
